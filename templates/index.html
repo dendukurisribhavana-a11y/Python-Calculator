@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Calculator</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="calculator">
+
+        <h1>Python Calculator</h1>
+        <p>Simple and Smart Calculation</p>
+
+        <form action="/calculate" method="POST">
+
+            <input
+                type="number"
+                step="any"
+                name="num1"
+                placeholder="Enter First Number"
+                required
+            >
+
+            <select name="operator">
+                <option value="+">Addition (+)</option>
+                <option value="-">Subtraction (-)</option>
+                <option value="*">Multiplication (*)</option>
+                <option value="/">Division (/)</option>
+                <option value="%">Modulus (%)</option>
+            </select>
+
+            <input
+                type="number"
+                step="any"
+                name="num2"
+                placeholder="Enter Second Number"
+                required
+            >
+
+            <button type="submit">Calculate</button>
+
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+                <h2>Result: {{ result }}</h2>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <h3>{{ error }}</h3>
+            </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
