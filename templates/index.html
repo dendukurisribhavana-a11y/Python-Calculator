@@ -56,7 +56,17 @@
                 <h3>{{ error }}</h3>
             </div>
         {% endif %}
+<div class="history">
+            <h2>Calculation History</h2>
 
+            {% if history %}
+                {% for item in history %}
+                    <p>{{ item[1] }} = {{ item[2] }}</p>
+                {% endfor %}
+            {% else %}
+                <p>No calculations yet.</p>
+            {% endif %}
+        </div>
     </div>
 
 </body>
