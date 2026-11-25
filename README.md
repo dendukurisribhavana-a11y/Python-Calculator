@@ -1,27 +1,48 @@
-# Advanced Python Calculator
+Python Calculator
 
-## About the Project
-An advanced calculator application developed using Python.
+A simple and user-friendly web-based calculator developed using Python and Flask.
 
-## Features
+Features
+
 - Addition
 - Subtraction
 - Multiplication
 - Division
 - Modulus
-- Error Handling
-- Invalid Input Handling
-- Continuous Calculations
+- Error handling for division by zero
+- Calculation history using SQLite database
 
-## Technologies Used
+Technologies Used
+
 - Python
 - Flask
 - HTML
 - CSS
 - SQLite
 
-## Project Objective
-To develop a user-friendly calculator application and improve Python programming skills.
+How to Run
 
-## Author
+1. Install the required packages:
+   
+   "pip install -r requirements.txt"
+
+2. Run the application:
+   
+   "python app.py"
+
+3. Open your browser and visit:
+   
+   "http://127.0.0.1:5000"
+
+Project Structure
+
+- app.py
+- calculator.py
+- database.py
+- requirements.txt
+- templates/index.html
+- static/style.css
+
+Author
+
 Python Development Intern
