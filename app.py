@@ -1,37 +1,60 @@
+from flask import Flask, render_template, request
 from calculator import calculate
+from database import create_database, save_history, get_history
 
-print("Welcome to Python Calculator")
+app = Flask(__name__)
 
-while True:
-    print("\n1. Addition")
-    print("2. Subtraction")
-    print("3. Multiplication")
-    print("4. Division")
-    print("5. Exit")
+create_database()
 
-    choice = input("Enter your choice: ")
+@app.route("/")
+def home():
+    history = get_history()
+    return render_template(
+        "index.html",
+        result=None,
+        error=None,
+        history=history
+    )
 
-    if choice == "5":
-        print("Thank you for using Calculator!")
-        break
 
-    if choice not in ["1", "2", "3", "4"]:
-        print("Invalid choice!")
-        continue
+@app.route("/calculate", methods=["POST"])
+def calculate_result():
 
     try:
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+        num1 = float(request.form["num1"])
+        num2 = float(request.form["num2"])
+        operator = request.form["operator"]
 
-        operators = {
-            "1": "+",
-            "2": "-",
-            "3": "*",
-            "4": "/"
-        }
+        result = calculate(num1, operator, num2)
 
-        result = calculate(num1, operators[choice], num2)
-        print("Result:", result)
+        calculation = f"{num1} {operator} {num2}"
+
+        save_history(calculation, result)
+
+        history = get_history()
+
+        return render_template(
+            "index.html",
+            result=result,
+            error=None,
+            history=history
+        )
+
+    except ZeroDivisionError as e:
+        error = str(e)
 
     except ValueError:
-        print("Please enter valid numbers!")
+        error = "Please enter valid numbers!"
+
+    history = get_history()
+
+    return render_template(
+        "index.html",
+        result=None,
+        error=error,
+        history=history
+    )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
